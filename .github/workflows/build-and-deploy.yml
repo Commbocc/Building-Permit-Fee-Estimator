@@ -6,7 +6,7 @@ on:
 
 env:
   - ALGOLIA_APPLICATION_ID: ${{ vars.ALGOLIA_APPLICATION_ID }}
-  - ALGOLIA_API_KEY: ${{ vars.ALGOLIA_API_KEY }
+  - ALGOLIA_API_KEY: ${{ vars.ALGOLIA_API_KEY }}
 
 jobs:
   build-and-deploy:

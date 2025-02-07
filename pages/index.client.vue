@@ -58,6 +58,7 @@ const transformCategories =
                 'ais-RefinementList-labelText': 'ml-1',
                 'ais-RefinementList-count': 'ml-1',
               }"
+              operator="and"
             />
           </UCard>
 
@@ -72,6 +73,7 @@ const transformCategories =
                 'ais-RefinementList-labelText': 'ml-1',
                 'ais-RefinementList-count': 'ml-1',
               }"
+              operator="and"
             />
           </UCard>
 
@@ -86,6 +88,7 @@ const transformCategories =
                 'ais-RefinementList-labelText': 'ml-1',
                 'ais-RefinementList-count': 'ml-1',
               }"
+              operator="and"
             />
           </UCard>
         </aside>

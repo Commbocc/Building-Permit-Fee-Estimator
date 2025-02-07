@@ -18,4 +18,8 @@ export default defineNuxtConfig({
       theme: "algolia",
     },
   },
+
+  app: {
+    baseURL: "/Building-Permit-Fee-Estimator/",
+  },
 });

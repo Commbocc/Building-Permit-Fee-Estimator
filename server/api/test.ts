@@ -2,7 +2,7 @@ export default defineEventHandler(async (event) => {
   const { client, manage } = useContentstackRestClient();
 
   const { entries } = await client<Root>(
-    `/content_types/building_permit_project/entries`
+    `/content_types/building_permit_project/entries`,
   );
 
   // const { taxonomies } = await manage<{ taxonomies: FullTaxonomy[] }>(
@@ -21,9 +21,6 @@ export default defineEventHandler(async (event) => {
   //   }
   // );
 
-  return {
-    //
-    entries,
-    // taxonomies,
-  };
+  return entries;
+  // taxonomies,
 });

@@ -13,16 +13,35 @@ const transformCategories =
   (taxonomy_uid: string) =>
   (
     items: ToDo[],
-    { results }: { results: { hits: AlgoliaProjectEntry[] } }
+    { results }: { results: { hits: AlgoliaProjectEntry[] } },
   ) => {
-    const categories = new Map(
+    const categories = new Map<string, boolean>(
       results.hits
         .flatMap((x) => x.taxonomies)
         .filter((x) => x.taxonomy_uid === taxonomy_uid)
-        .map((x) => [x.term_uid, true])
+        .map((x) => [x.term_uid, true]),
     );
 
-    return items.filter((x) => categories.has(x.value));
+    function getTermNameFromKey(key: string) {
+      return {
+        fbc_occupancy_classification: "FBC Occupancy Classification",
+        building: "Building",
+        mechanical: "Mechanical",
+        plumbing: "Plumbing",
+        electrical: "Electrical",
+        signs: "Signs",
+        new_construction_permits: "New Construction Permits",
+        additions_permits: "Additions Permits",
+        alterations_permits: "Alterations Permits",
+        trade_permits: "Trade Permits",
+        miscellaneous_permits: "Miscellaneous Permits",
+        general_admim: "General Admin",
+      }[key];
+    }
+
+    return items
+      .filter((x) => categories.has(x.value))
+      .map((x) => ({ ...x, label: getTermNameFromKey(x.label) }));
   };
 </script>
 
@@ -33,7 +52,13 @@ const transformCategories =
         <aside class="space-y-3">
           <UCard>
             <template #header>Project Type</template>
-            <ais-refinement-list attribute="type" />
+            <ais-refinement-list
+              attribute="type"
+              :class-names="{
+                'ais-RefinementList-labelText': 'ml-1',
+                'ais-RefinementList-count': 'ml-1',
+              }"
+            />
           </UCard>
 
           <UCard>
@@ -43,6 +68,10 @@ const transformCategories =
               :transform-items="
                 transformCategories('building_permit_project_category')
               "
+              :class-names="{
+                'ais-RefinementList-labelText': 'ml-1',
+                'ais-RefinementList-count': 'ml-1',
+              }"
             />
           </UCard>
 
@@ -53,6 +82,10 @@ const transformCategories =
               :transform-items="
                 transformCategories('building_permit_project_subcategory')
               "
+              :class-names="{
+                'ais-RefinementList-labelText': 'ml-1',
+                'ais-RefinementList-count': 'ml-1',
+              }"
             />
           </UCard>
         </aside>
@@ -79,6 +112,13 @@ const transformCategories =
 
       <section class="text-xs prose mx-auto my-5 max-w-full">
         <hr />
+        <p>
+          To determine what type of permit application must be submitted for
+          your project, use the
+          <a href="https://commbocc.github.io/hillsgovhub-permit-types/"
+            >Permit Types by Project Tool</a
+          >.
+        </p>
         <p>
           This permit fee estimator is for Building Fees only. Fees include
           building, mechancial, electrical, and plumbing disciplines. Other fees

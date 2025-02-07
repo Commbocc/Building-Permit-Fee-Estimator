@@ -52,4 +52,11 @@ interface AlgoliaProjectEntry extends Entry {
   objectID: string;
 }
 
+interface ModelSelectionsType {
+  type: "Residential" | "Commercial";
+  squareFootage?: number;
+  ppReview: boolean;
+  ppInspection: boolean;
+}
+
 declare module "vue-instantsearch/vue3/es";

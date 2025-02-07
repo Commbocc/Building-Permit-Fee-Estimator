@@ -1,0 +1,1 @@
+import{f as p,g as r,h as e,C as s,i as o}from"./5MHYexmi.js";const d=i=>{const n=o(i);return p({inheritAttrs:!1,setup(u,{attrs:t}){return r().isHydrating?()=>e("div",[e(s,void 0,{default:()=>e(n,t)})]):()=>e(n,t)}})};export{d as createClientPage};

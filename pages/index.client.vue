@@ -9,6 +9,23 @@ import {
 const indexName = "test_permit_fees";
 const algolia = useAlgoliaRef();
 
+function getTermNameFromKey(key: string) {
+  return {
+    fbc_occupancy_classification: "FBC Occupancy Classification",
+    building: "Building",
+    mechanical: "Mechanical",
+    plumbing: "Plumbing",
+    electrical: "Electrical",
+    signs: "Signs",
+    new_construction_permits: "New Construction Permits",
+    additions_permits: "Additions Permits",
+    alterations_permits: "Alterations Permits",
+    trade_permits: "Trade Permits",
+    miscellaneous_permits: "Miscellaneous Permits",
+    general_admim: "General Admin",
+  }[key];
+}
+
 const transformCategories =
   (taxonomy_uid: string) =>
   (
@@ -21,23 +38,6 @@ const transformCategories =
         .filter((x) => x.taxonomy_uid === taxonomy_uid)
         .map((x) => [x.term_uid, true]),
     );
-
-    function getTermNameFromKey(key: string) {
-      return {
-        fbc_occupancy_classification: "FBC Occupancy Classification",
-        building: "Building",
-        mechanical: "Mechanical",
-        plumbing: "Plumbing",
-        electrical: "Electrical",
-        signs: "Signs",
-        new_construction_permits: "New Construction Permits",
-        additions_permits: "Additions Permits",
-        alterations_permits: "Alterations Permits",
-        trade_permits: "Trade Permits",
-        miscellaneous_permits: "Miscellaneous Permits",
-        general_admim: "General Admin",
-      }[key];
-    }
 
     return items
       .filter((x) => categories.has(x.value))

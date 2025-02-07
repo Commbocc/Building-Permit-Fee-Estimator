@@ -5,8 +5,17 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
-  modules: ["@nuxt/ui"],
+  modules: ["@nuxt/ui", "@nuxtjs/algolia"],
+
   ui: {
     colorMode: false,
+  },
+
+  algolia: {
+    apiKey: process.env.ALGOLIA_SEARCH_API_KEY,
+    applicationId: process.env.ALGOLIA_APPLICATION_ID,
+    instantSearch: {
+      theme: "algolia",
+    },
   },
 });

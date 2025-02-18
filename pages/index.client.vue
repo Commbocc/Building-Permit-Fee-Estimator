@@ -77,7 +77,7 @@ const transformCategories =
             />
           </UCard>
 
-          <UCard>
+          <UCard class="mb-3">
             <template #header>Project Subcategory</template>
             <ais-refinement-list
               attribute="taxonomies.term_uid"
@@ -118,7 +118,9 @@ const transformCategories =
         <p>
           To determine what type of permit application must be submitted for
           your project, use the
-          <a href="https://commbocc.github.io/hillsgovhub-permit-types/"
+          <a
+            href="https://commbocc.github.io/hillsgovhub-permit-types/"
+            target="_blank"
             >Permit Types by Project Tool</a
           >.
         </p>
@@ -128,7 +130,9 @@ const transformCategories =
           may apply such as fire, natural resources, impact, utility, etc. as
           required per project scope. For information regarding trade permit
           fees, visit the
-          <a href="https://hcfl.gov/businesses/permits-and-records/permit-fees"
+          <a
+            href="https://hcfl.gov/businesses/permits-and-records/permit-fees"
+            target="_blank"
             >Permit Fees</a
           >
           page.

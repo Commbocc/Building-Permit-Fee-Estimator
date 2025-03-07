@@ -4,6 +4,7 @@ import {
   AisSearchBox,
   AisHits,
   AisRefinementList,
+  AisClearRefinements,
 } from "vue-instantsearch/vue3/es";
 
 const indexName = "test_permit_fees";
@@ -46,11 +47,18 @@ const transformCategories =
 </script>
 
 <template>
+  <h1 class="text-4xl text-center my-5">Building Permit Fee Estimator</h1>
+
   <ais-instant-search :index-name="indexName" :search-client="algolia">
     <UContainer class="my-5">
       <div class="sm:grid grid-cols-3 gap-3">
         <aside class="space-y-3">
-          <UCard>
+          <p>
+            Select a permit type and subcategory below or search to filter the
+            results.
+          </p>
+
+          <!-- <UCard>
             <template #header>Project Type</template>
             <ais-refinement-list
               attribute="type"
@@ -60,10 +68,11 @@ const transformCategories =
               }"
               operator="and"
             />
-          </UCard>
+          </UCard> -->
 
           <UCard>
-            <template #header>Project Category</template>
+            <template #header>Permit Type</template>
+
             <ais-refinement-list
               attribute="taxonomies.term_uid"
               :transform-items="
@@ -79,6 +88,7 @@ const transformCategories =
 
           <UCard class="mb-3">
             <template #header>Project Subcategory</template>
+
             <ais-refinement-list
               attribute="taxonomies.term_uid"
               :transform-items="
@@ -91,11 +101,15 @@ const transformCategories =
               operator="and"
             />
           </UCard>
+
+          <ais-clear-refinements>
+            <template v-slot:resetLabel>Clear Selections</template>
+          </ais-clear-refinements>
         </aside>
 
         <section class="col-span-2">
           <div class="space-y-3">
-            <ais-search-box />
+            <ais-search-box placeholder="Search permits" />
 
             <ais-hits
               v-slot="{ items }: { items: AlgoliaProjectEntry[] }"
@@ -115,6 +129,7 @@ const transformCategories =
 
       <section class="text-xs prose mx-auto my-5 max-w-full">
         <hr />
+
         <p>
           To determine what type of permit application must be submitted for
           your project, use the
@@ -124,6 +139,7 @@ const transformCategories =
             >Permit Types by Project Tool</a
           >.
         </p>
+
         <p>
           This permit fee estimator is for Building Fees only. Fees include
           building, mechancial, electrical, and plumbing disciplines. Other fees
@@ -137,6 +153,7 @@ const transformCategories =
           >
           page.
         </p>
+
         <p>
           The amounts provided reflect an estimate for the costs of plan review
           and permits based on the information entered by the client. This
@@ -146,16 +163,19 @@ const transformCategories =
           The final determination of the permit cost will be made through the
           plan review process itself.
         </p>
+
         <p>
           Fees for permits or services not specified in any of the fee scheduels
           will be calculated by the Building Official or their designee
           utilizing the most current fee study methodology based on the
           estimated actual cost to perform the work.
         </p>
+
         <p>
           All permitting fees will be assessed surcharges as required per
           established Florida Statutes.
         </p>
+
         <p>DCBA and DBR fee of 2.5% will apply.</p>
       </section>
     </UContainer>

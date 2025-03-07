@@ -20,6 +20,14 @@ onMounted(() => {
       : "Residential";
 });
 
+const type = computed(() => {
+  return props.project.commercial_fee && !props.project.residential_fee
+    ? ["Commercial"]
+    : !props.project.commercial_fee && props.project.residential_fee
+    ? ["Residential"]
+    : ["Residential", "Commercial"];
+});
+
 const total = computed(() => {
   let sub = {
     Residential: props.project.residential_fee,
@@ -39,22 +47,14 @@ const total = computed(() => {
     : 1;
   sub *= ppAdjustment;
 
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(sub ?? 0);
+  return sub ?? 0;
 });
 
 const valid = computed(() => true);
 </script>
 
 <template>
-  <URadioGroup
-    class="mb-2"
-    v-if="project.residential_fee > 0 && project.commercial_fee > 0"
-    v-model="modelSelections.type"
-    :items="['Residential', 'Commercial']"
-  />
+  <URadioGroup class="mb-2" v-model="modelSelections.type" :items="type" />
 
   <UInputNumber
     class="mb-3 font-black"
@@ -67,14 +67,27 @@ const valid = computed(() => true);
 
   <UCheckbox
     class="mb-1"
+    v-if="project.plan_review"
     v-model="modelSelections.ppReview"
     label="Plan Review completed by Private Provider"
   />
   <UCheckbox
     class="mb-5"
+    v-if="project.inspection"
     v-model="modelSelections.ppInspection"
     label="Inspection(s) completed by Private Provider"
   />
 
-  <p class="text-lg" v-if="valid">{{ total }}</p>
+  <p class="text-lg" v-if="valid">
+    {{
+      Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(total)
+    }}
+  </p>
+
+  <p class="text-lg" v-if="total < project.minimum_fee">
+    This is less than the required minimum fee of ${{ project.minimum_fee }}.
+  </p>
 </template>

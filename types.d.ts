@@ -22,6 +22,9 @@ interface Entry {
   updated_at: string;
   updated_by: string;
   publish_details: PublishDetails;
+  plan_review: boolean;
+  inspection: boolean;
+  minimum_fee: number;
 }
 
 interface Acl {}
